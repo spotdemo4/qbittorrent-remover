@@ -12,10 +12,11 @@ while True:
         torrents = qb.torrents()
 
         for torrent in torrents:
+            print(torrent)
             if torrent['category'] == 'autobrr' and torrent['state'] == 'pausedUP':
                 print('Deleting ' + torrent['name'])
                 qb.delete_permanently(torrent['hash'])
     except:
         print('Error connecting to qBittorrent')
 
-    time.sleep(3600)
+    time.sleep(300)
