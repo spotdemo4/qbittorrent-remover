@@ -16,8 +16,13 @@ while True:
                 print('Deleting finished torrent: ' + torrent['name'])
                 qb.delete_permanently(torrent['hash'])
             elif torrent['category'] == 'autobrr' and torrent['tracker'] == '':
-                print('Deleting untracked torrent: ' + torrent['name'])
-                qb.delete_permanently(torrent['hash'])
+                if torrent['time_active'] > 3600:
+                    print('Deleting untracked torrent: ' + torrent['name'])
+                    qb.delete_permanently(torrent['hash'])
+                else:
+                    print('Restarting untracked torrent: ' + torrent['name'])
+                    qb.pause(torrent['hash'])
+                    qb.resume(torrent['hash'])
             
     except:
         print('Error connecting to qBittorrent')
